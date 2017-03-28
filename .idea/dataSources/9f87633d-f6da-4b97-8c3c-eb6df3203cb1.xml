@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="GI.db">
+  <database-model serializer="dbm" rdbms="SQLITE" format-version="4.0">
+    <root id="1"/>
+    <schema id="2" parent="1">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <table id="3" parent="2" name="investment"/>
+    <table id="4" parent="2" name="title"/>
+    <column id="5" parent="3" name="id">
+      <DataType>INTEGER(0,-1)|4</DataType>
+    </column>
+    <column id="6" parent="3" name="title">
+      <Position>1</Position>
+      <DataType>TEXT(0,-1)|12</DataType>
+    </column>
+    <column id="7" parent="3" name="amount_invested">
+      <Position>2</Position>
+      <DataType>REAL(0,-1)|6</DataType>
+    </column>
+    <column id="8" parent="3" name="date_start">
+      <Position>3</Position>
+      <DataType>DATE(0,-1)|12</DataType>
+    </column>
+    <column id="9" parent="3" name="confirmation_of_investment">
+      <Position>4</Position>
+      <DataType>NUMERIC(0,-1)|6</DataType>
+    </column>
+    <column id="10" parent="3" name="date_end">
+      <Position>5</Position>
+      <DataType>DATE(0,-1)|12</DataType>
+    </column>
+    <column id="11" parent="3" name="profit">
+      <Position>6</Position>
+      <DataType>REAL(0,-1)|6</DataType>
+    </column>
+    <column id="12" parent="3" name="confirmation_of_withdrawal">
+      <Position>7</Position>
+      <DataType>NUMERIC(0,-1)|6</DataType>
+    </column>
+    <key id="13" parent="3">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="14" parent="3" name="#FAKE_investment_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>title</ColNames>
+      <Deferrable>1</Deferrable>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <RefTableName>title</RefTableName>
+      <RefColNames>alias</RefColNames>
+      <OnDelete>no-action</OnDelete>
+      <OnUpdate>no-action</OnUpdate>
+    </foreign-key>
+    <column id="15" parent="4" name="id">
+      <DataType>INTEGER(0,-1)|4</DataType>
+    </column>
+    <column id="16" parent="4" name="name">
+      <Position>1</Position>
+      <DataType>VARCHAR(50)(0,-1)|12</DataType>
+    </column>
+    <column id="17" parent="4" name="alias">
+      <Position>2</Position>
+      <DataType>TEXT(0,-1)|12</DataType>
+    </column>
+    <key id="18" parent="4">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+  </database-model>
+</dataSource>
