@@ -3,9 +3,9 @@ from modules import individual
 
 #TODO always sous classer Object
 class Population(object):
-    individuals = []
 
     def __init__(self, count, title, minInvest, maxInvest, minDelay, maxDelay):
+        self.individuals = [] #Instance property
         for x in xrange(count):
             self.individuals.append(individual.Individual(title,minInvest,maxInvest,minDelay,maxDelay))
 
