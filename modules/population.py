@@ -1,8 +1,8 @@
 import array
 from modules import individual
 
-
-class Population:
+#TODO always sous classer Object
+class Population(object):
     individuals = []
 
     def __init__(self, count, title, minInvest, maxInvest, minDelay, maxDelay):
