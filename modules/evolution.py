@@ -12,7 +12,7 @@ def breed(parents):
         if mother == father:
             mother -= 1
             if mother == -1:
-                mother = 2
+                mother = 1
         child = individual.Individual(parents[father].title,parents[father].min_invest,parents[mother].max_invest,parents[mother].min_delay,parents[father].max_delay)
         new_pop.append(child)
 
