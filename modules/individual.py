@@ -2,9 +2,9 @@ from random import randint
 from modules import investment
 import sched,time, threading
 
-class Individual:
+class Individual(object):
     """Representation of one investment"""
-    netGains = None
+    netGains = None #None will give instanciated variable
 
     def __init__(self, title, date_start,date_end):
         self.title = title
