@@ -14,9 +14,3 @@ The populations are bound to many strict hour brackets inside which the individu
 The evolution of a population happens at the closure of a defined market, where fitness is calculated and children are bread.
 
 This is a long term project and all data will be archived in a database.
-
-
-
-
-Yahoo finance
-pip install yahoo-finance
