@@ -1,6 +1,7 @@
 from random import randint
 from modules import investment
-import sched,time, threading
+import sched,time, datetime
+from threading import Timer
 
 class Individual(object):
     """Representation of one investment"""
@@ -8,12 +9,13 @@ class Individual(object):
 
     def __init__(self, title, date_start,date_end):
         self.title = title
-        self.investment = investment.Investment(title,self.price,date_start,date_end)
+        self.delay = date_end - date_start
+        self.investment = investment.Investment(title,date_start,date_end)
         # start timer with delay
         # when timer is done
         # startTimer(delay):
         #   self.netGains=price - investment.liquidateStock(title,self.amount)
-        threading.Timer(date_start - time.time(), self.invest).start()#todo:thread to start investing at good time.
+        Timer(date_start.date() - datetime.datetime.now(), self.invest).start()#todo:thread to start investing at good time.
 
     @classmethod
     def random(cls, title, date,max_start_range,max_end_delay):
@@ -31,7 +33,8 @@ class Individual(object):
         return cls(title, date_start, date_end)
 
     def invest(self):
-        threading.Timer(self.delay, self.gains).start()
+        self.investment.buy()
+        Timer(self.delay, self.gains).start()
 
     def get_net_result(self):
         return self.netGains
