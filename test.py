@@ -8,20 +8,21 @@ import datetime
 
 def test_individual():
     now = datetime.datetime.now(utc)
-    dude = individual.Individual('AAL',time.mktime(now.timetuple())
-                                 ,time.mktime((now+datetime.timedelta(0,5)).timetuple()
-                                              )
+    dude = individual.Individual('AAL',time.time()
+                                 ,time.time()+5
                                  )
-    print "Called successfully, awaiting Liquidating call."
-    print "Liquidating call should be received."
-    time.sleep(5)
-    print "Net result is: ", dude.get_net_result()
+    assert dude != None
+    print "Created Individual successfully"
+    wait(6,False)
+    print "Profit: ", dude.investment.profit
 
 def test_population():
     pop = population.Population('AAL',time.time(),time.time()+10)
     pop.generate()
     assert len(pop.individuals) > 0
     print "Created population without hitch"
+    wait(10,False)
+    print "We assume everythin' went just right..."
 
 def test_fitness():
     print "No Fitness test yet"
@@ -30,26 +31,25 @@ def test_grade():
     print "Testing grade of population."
     pop2 = population.Population('AAL',time.time(),time.time()+10)
     pop2.generate()
-    time.sleep(10)
+    time.sleep(11)
     print "Grade score:",fitness.grade(pop2.get_pop())
-    for ind in pop2.get_pop():
-        print ind.investment.profit,
 
 def test_evolve():
+    print "Testing evolution of a population"
     pop3 = population.Population('AAL',time.time(),time.time()+10)
     pop3.generate()
-    time.sleep(10)
+    time.sleep(11)
     print "Grade score:", fitness.grade(pop3.get_pop())
     pop4 = evolution.breed(pop3.get_pop(),pop3.date_start,pop3.date_end)
-    time.sleep(10)
+    time.sleep(11)
     print "Grade score:", fitness.grade(pop4)
 
 def test_new_investment():
-    invest = investment.Investment("AAL",time.time(),(time.time()+5000))
+    invest = investment.Investment("AAL",time.time(),(time.time()+5))
     print "id of new investment:",invest.id
 
 def test_update():
-    invest = investment.Investment("AAL",time.time(),(time.time()+5000))
+    invest = investment.Investment("AAL",time.time(),(time.time()+5))
     invest.get_title_value = mock_up_title_value
     invest.buy()
     invest.get_title_value = mock_up_title_value2
@@ -65,6 +65,12 @@ def mock_up_title_value():
 def mock_up_title_value2():
     return 33
 
+def wait(seconds,quiet=True):
+    for x in range(1,seconds+1):
+        time.sleep(1)
+        if not quiet:
+            print x, "seconds elapsed"
+
 def all():
     test_individual()
     test_population()
@@ -73,5 +79,6 @@ def all():
     test_evolve()
     test_update()
 
+
 # test_new_investment()
-all()
+test_grade()

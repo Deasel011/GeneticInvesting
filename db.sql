@@ -1,3 +1,5 @@
+PRAGMA journal_mode=WAL;
+
 CREATE TABLE investment(
   id INTEGER PRIMARY KEY,
   title TEXT,

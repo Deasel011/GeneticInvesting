@@ -42,17 +42,17 @@ def populate_titles(titles):
     connection.close()
     return None
 
-def insert(title, date_start, date_end,amount=0, confirmation_of_start=False, confirmation_of_withdrawal=False,
+def insert(title, date_start, date_end, popid, amount=0, confirmation_of_start=False, confirmation_of_withdrawal=False,
            profit=0):
-    params = (title, amount, date_start, date_end, confirmation_of_start, confirmation_of_withdrawal, profit)
-    connection = sqlite3.connect(db_route)
+    params = (title, date_start, date_end, popid, amount,confirmation_of_start, confirmation_of_withdrawal, profit)
+    connection = sqlite3.connect(db_route,100)
     cursor = connection.cursor()
 
     cursor.execute(
-        "INSERT INTO investment(title, amount,"
-        "date_start, date_end,"
+        "INSERT INTO investment(title, "
+        "date_start, date_end, population_id, amount,"
         "confirmation_of_start, confirmation_of_withdrawal,"
-        "profit) VALUES(?, ?, ?, ?, ?, ?, ?)", params)
+        "profit) VALUES(?, ?, ?, ?, ?, ?, ?, ?)", params)
 
     id = cursor.lastrowid
     connection.commit()
@@ -74,11 +74,8 @@ def insertPop(title,date_start,date_end):
     return id
 
 
-def update():
-    return None
-
 def update(investment, key):
-    connection = sqlite3.connect(db_route,50)
+    connection = sqlite3.connect(db_route,100)
     cursor = connection.cursor()
     params = (getattr(investment, key), investment.id)
     query = "UPDATE investment set " + key + " = ? where id = ?"
@@ -108,7 +105,7 @@ def select_uninvested_investments():
 
 def select_unwithdrawed_investments():
     result = {}
-    connection = connect()
+    connection = sqlite3.connect(db_route)
     cursor = connection.cursor()
     cursor.execute(
         "SELECT * FROM investment where confirmation_of_withdrawal=0 and date_end <= " + time.time())  # TODO: assert this works
@@ -125,17 +122,5 @@ def select_unwithdrawed_investments():
     connection.close()
     return result
 
-def connect():
-    connection = sqlite3.connect(db_route)
-    for x in range(0, timeout):
-        try:
-            with connection:
-                return connection
-        except:
-            time.sleep(1)
-            pass
-        finally:
-            break
-    else:
-        with connection:
-            return connection
+def dailyArchive():
+    None

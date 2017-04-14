@@ -17,7 +17,7 @@ class Population(object):
         for x in xrange(100):
             start = random.randint(int(self.date_start), int(self.date_end))
             end = random.randint(start,int(self.date_end))
-            indiv = individual.Individual(self.title,start,end)
+            indiv = individual.Individual(self.title,start,end,self.id)
             self.individuals.append(indiv)
 
     def load_from_db(self):

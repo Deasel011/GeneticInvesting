@@ -4,7 +4,7 @@ s = sched.scheduler(time.time, time.sleep)
 
 class Fitness:
     def __init__(self, individual):
-        self.result = individual.get_net_result()
+        self.result = individual.investment.amount
         self.individual = individual
         count = 3
         while self.result is None and count > 0:

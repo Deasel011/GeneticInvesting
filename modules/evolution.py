@@ -3,6 +3,13 @@ from modules import individual
 
 mutate_chance = 0.01
 
+#todo: update times for tomorow of parents!
+#todo: update times for tomorow of date_min and date_max!
+
+def breedPop(pop):
+    pop.indivudials = breed(pop.get_pop(),pop.date_start,pop.date_end)
+
+
 def breed(parents,date_min,date_max):
     new_pop = []
     new_pop.append(parents)
@@ -17,8 +24,8 @@ def breed(parents,date_min,date_max):
                 mother = 1
 
         father_title = parents[father].title
-        father_min_date_invest = parents[father].date_start
-        mother_max_date_invest = parents[mother].date_end
+        father_min_date_invest = parents[father].investment.date_start
+        mother_max_date_invest = parents[mother].investment.date_withdraw
 
         if father_min_date_invest < mother_max_date_invest:
             child = individual.Individual(father_title,
