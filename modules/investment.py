@@ -8,20 +8,30 @@ class Investment:
     def __init__(self, title, amount, date_start, date_end):
         self.amount = None
         self.profit = None
-        self.date_start = None
-        self.date_withdraw = None
+        self.date_start = date_start
+        self.date_withdraw = date_end
         self.confirmation_start = False
         self.confirmation_withdraw = False
         self.title = title
         self.id = database.insert(title,amount,date_start,date_end)
 
+    def buy(self):
+        self.amount = titles.getTitleValue(self.title)
+        if self.amount != None:
+            self.confirmation_start = True
 
-def buy_stock(title,amount):
-    try:
-        price_of_transaction = titles.getTitleValue(title) * amount
-    except urllib2.URLError:
-        return buy_stock_recursive(title,amount,MAX_DEPTH)
-    return price_of_transaction
+    def sell(self):
+        if self.confirmation_start == True:
+            self.profit = titles.getTitleValue(self.title) - self.amount
+            self.confirmation_withdraw = True
+
+
+# def buy_stock(title,amount):
+#     try:
+#         self.amount = titles.getTitleValue(title) * amount
+#     except urllib2.URLError:
+#         return buy_stock_recursive(title,amount,MAX_DEPTH)
+#     return price_of_transaction
 
 def buy_stock_recursive(title,amount,depth):
     print "Trying http call, ", depth, " to go."
@@ -55,9 +65,3 @@ def liquidate_stock_recursive(title,amount, depth):
         depth = depth -1
         return liquidate_stock_recursive(title, amount, depth)
     return gains_of_transaction
-
-def coverStock():
-    return None
-
-def shortStock():
-    return None

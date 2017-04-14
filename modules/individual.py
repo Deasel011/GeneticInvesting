@@ -8,7 +8,6 @@ class Individual(object):
 
     def __init__(self, title, date_start,date_end):
         self.title = title
-        self.price = investment.buy_stock(title, 1)
         self.investment = investment.Investment(title,self.price,date_start,date_end)
         # start timer with delay
         # when timer is done
