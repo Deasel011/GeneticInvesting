@@ -3,9 +3,13 @@ from modules import individual
 from modules import fitness, evolution, investment
 from ressources import database
 import time
+import datetime
 
 def test_individual():
-    dude = individual.Individual('AAL',3,6,3,10)
+    now = datetime.datetime.now()
+    utc = now.utcnow()
+
+    dude = individual.Individual('AAL',now.utcnow(),now+datetime.timedelta(0,0,0,0,25))
     print "Called successfully, awaiting Liquidating call."
     time.sleep(10)
     print "Liquidating call should be received."
@@ -64,5 +68,11 @@ def all():
     test_grade()
     test_evolve()
 
+<<<<<<< HEAD
 # test_new_investment()
 test_update()
+=======
+
+all()
+
+>>>>>>> 6034a2d7237615de76a42636c5b454fe8cd9f784

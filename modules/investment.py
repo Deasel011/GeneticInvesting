@@ -5,7 +5,7 @@ from ressources import titles
 MAX_DEPTH = 3
 
 class Investment:
-    def __init__(self, title, amount, date_start, date_end):
+    def __init__(self, title, date_start, date_end):
         self.amount = None
         self.profit = None
         self.date_start = date_start
@@ -13,7 +13,7 @@ class Investment:
         self.confirmation_start = False
         self.confirmation_withdraw = False
         self.title = title
-        self.id = database.insert(title,amount,date_start,date_end)
+        self.id = database.insert(title,date_start,date_end)
 
     def buy(self):
         self.amount = self.get_title_value()
