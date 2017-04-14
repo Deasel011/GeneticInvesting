@@ -17,8 +17,6 @@ class Individual(object):
         # when timer is done
         # startTimer(delay):
         #   self.netGains=price - investment.liquidateStock(title,self.amount)
-        print "start ",date_start, datetime.datetime.fromtimestamp(date_start)
-        print "end ",date_end, datetime.datetime.fromtimestamp(date_end)
         Timer(date_start - time.time(), self.invest).start()#todo:thread to start investing at good time.
 
     @classmethod
@@ -41,11 +39,5 @@ class Individual(object):
     def get_net_result(self):
         return self.netGains
 
-    def get_amount(self):
-        return self.amount
-
-    def get_min_delay(self):
-        return self.min_delay
-
     def gains(self):
-        self.netGains = self.price - investment.liquidate_stock(self.title, self.amount)
+        self.netGains = self.investment.sell()
