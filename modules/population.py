@@ -13,14 +13,12 @@ class Population(object):
         self.date_end=date_end
         self.id = database.insertPop(title,date_start,date_end)
 
-
     def generate(self):
         for x in xrange(100):
             start = random.randint(int(self.date_start), int(self.date_end))
             end = random.randint(start,int(self.date_end))
             indiv = individual.Individual(self.title,start,end)
             self.individuals.append(indiv)
-
 
     def load_from_db(self):
         self.individuals = database.getPopulation()

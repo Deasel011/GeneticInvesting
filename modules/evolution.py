@@ -6,15 +6,25 @@ mutate_chance = 0.01
 def breed(parents,date_min,date_max):
     new_pop = []
     new_pop.append(parents)
+
     while len(new_pop)<len(parents):
         father = randint(0,len(parents)-1)
         mother = randint(0, len(parents)-1)
+
         if mother == father:
             mother -= 1
             if mother == -1:
                 mother = 1
-        child = individual.Individual(parents[father].title,parents[father].min_invest,parents[mother].max_invest,parents[mother].min_delay,parents[father].max_delay)
-        new_pop.append(child)
+
+        father_title = parents[father].title
+        father_min_date_invest = parents[father].date_start
+        mother_max_date_invest = parents[mother].date_end
+
+        if father_min_date_invest < mother_max_date_invest:
+            child = individual.Individual(father_title,
+                                          father_min_date_invest,
+                                          mother_max_date_invest)
+            new_pop.append(child)
 
     for i in new_pop:
         if mutate_chance > random():

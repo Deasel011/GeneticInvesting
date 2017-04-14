@@ -29,8 +29,6 @@ class Individual(object):
         date_end = date_start + end_delay
         return cls(title,date_start,date_end)
 
-
-
     @classmethod
     def defined(cls, title, date_start,end_delay):
         date_end = date_start + end_delay
