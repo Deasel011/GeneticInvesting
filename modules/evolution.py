@@ -3,7 +3,7 @@ from modules import individual
 
 mutate_chance = 0.01
 
-def breed(parents):
+def breed(parents,date_min,date_max):
     new_pop = []
     new_pop.append(parents)
     while len(new_pop)<len(parents):
@@ -18,6 +18,8 @@ def breed(parents):
 
     for i in new_pop:
         if mutate_chance > random():
-            i = individual.Individual(parents[0].title, 1,10,1,10)
+            start = random.randint(int(date_min), int(date_max))
+            end = random.randint(start, int(date_max))
+            i = individual.Individual(parents[0].title, start,end)
 
     return new_pop

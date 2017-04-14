@@ -1,7 +1,9 @@
 from random import randint
 from modules import investment
 import sched,time, datetime
+from datetime import timedelta
 from threading import Timer
+from pytz import utc
 
 class Individual(object):
     """Representation of one investment"""
@@ -15,10 +17,12 @@ class Individual(object):
         # when timer is done
         # startTimer(delay):
         #   self.netGains=price - investment.liquidateStock(title,self.amount)
-        Timer(date_start.date() - datetime.datetime.now(), self.invest).start()#todo:thread to start investing at good time.
+        print "start ",date_start, datetime.datetime.fromtimestamp(date_start)
+        print "end ",date_end, datetime.datetime.fromtimestamp(date_end)
+        Timer(date_start - time.time(), self.invest).start()#todo:thread to start investing at good time.
 
     @classmethod
-    def random(cls, title, date,max_start_range,max_end_delay):
+    def random(cls, date_min, date_max):
         start_delay = randint(0,max_start_range)
         end_delay = randint(0,max_end_delay)
         date_start = date + start_delay

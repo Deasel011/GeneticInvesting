@@ -1,24 +1,24 @@
 from modules import population
 from modules import individual
 from modules import fitness, evolution, investment
+from pytz import timezone, utc
 from ressources import database
 import time
 import datetime
 
 def test_individual():
-    now = datetime.datetime.now()
-    utc = now.utcnow()
-
-    dude = individual.Individual('AAL',now.utcnow(),now+datetime.timedelta(0,0,0,0,25))
+    now = datetime.datetime.now(utc)
+    dude = individual.Individual('AAL',time.mktime(now.timetuple())
+                                 ,time.mktime((now+datetime.timedelta(0,5)).timetuple()
+                                              )
+                                 )
     print "Called successfully, awaiting Liquidating call."
-    time.sleep(10)
     print "Liquidating call should be received."
     print "Net result is: ", dude.get_net_result()
 
 def test_population():
-    pop = population.Population(10,'AAL',3,6,3,10)
+    pop = population.Population('AAL',time.time(),time.time()+10)
     print "Called successfully, awaiting 10 Liquidating calls."
-    time.sleep(10)
     print "All Liquidating calls should be received."
 
 def test_fitness():
@@ -26,7 +26,7 @@ def test_fitness():
 
 def test_grade():
     print "Testing grade of population."
-    pop2 = population.Population(10, 'AAL', 3, 6, 3, 10)
+    pop2 = population.Population('AAL',time.time(),time.time()+10)
     time.sleep(10)
     print "Grade score:",fitness.grade(pop2.get_pop())
     for ind in pop2.get_pop():

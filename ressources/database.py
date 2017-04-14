@@ -59,6 +59,20 @@ def insert(title, date_start, date_end, amount_invested=0,confirmation_of_start=
     connection.close()
     return id
 
+def insertPop(title,date_start,date_end):
+    params = (title, date_start, date_end)
+    connection = sqlite3.connect(db_route)
+    cursor = connection.cursor()
+
+    cursor.execute(
+        "INSERT INTO population(title,"
+        "date_start, date_end) VALUES (?,?,?)", params)
+
+    id = cursor.lastrowid
+    connection.commit()
+    connection.close()
+    return id
+
 
 def update():
     return None
