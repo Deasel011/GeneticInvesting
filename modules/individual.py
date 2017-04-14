@@ -19,7 +19,13 @@ class Individual(object):
         #   self.netGains=price - investment.liquidateStock(title,self.amount)
         Timer(date_start - time.time(), self.invest).start()#todo:thread to start investing at good time.
 
-
+    @classmethod
+    def random(cls, date_min, date_max):
+        start_delay = randint(0,max_start_range)
+        end_delay = randint(0,max_end_delay)
+        date_start = date + start_delay
+        date_end = date_start + end_delay
+        return cls(title,date_start,date_end)
 
     @classmethod
     def defined(cls, title, date_start,end_delay):
