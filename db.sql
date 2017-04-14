@@ -1,7 +1,7 @@
 CREATE TABLE investment(
   id INTEGER PRIMARY KEY,
   title TEXT,
-  amount_invested REAL,
+  amount REAL,
   date_start TIMESTAMP,
   confirmation_of_start NUMERIC,
   date_end TIMESTAMP,

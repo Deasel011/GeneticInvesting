@@ -1,7 +1,7 @@
 import sqlite3
 import time
 
-db_route = "/Users/pdesl/PycharmProjects/GeneticInvesting/GI.db"
+db_route = "/home/pobe/uqam/ai4230/GeneticInvesting/GI.db"
 
 # def init():
 #     connection = sqlite3.connect(db_route)
@@ -10,7 +10,7 @@ db_route = "/Users/pdesl/PycharmProjects/GeneticInvesting/GI.db"
 #         "CREATE TABLE investment("
 #         "id INTEGER PRIMARY KEY,"
 #         "title TEXT,"
-#         "amount_invested REAL,"
+#         "amountREAL,"
 #         "date_start TIMESTAMP,"
 #         "confirmation_of_start NUMERIC,"
 #         "date_end TIMESTAMP,"
@@ -41,15 +41,14 @@ def populate_titles(titles):
     connection.close()
     return None
 
-
-def insert(title, amount_invested, date_start, date_end, confirmation_of_start=False, confirmation_of_withdrawal=False,
+def insert(title, amount, date_start, date_end, confirmation_of_start=False, confirmation_of_withdrawal=False,
            profit=0):
-    params = (title, amount_invested, date_start, date_end, confirmation_of_start, confirmation_of_withdrawal, profit)
+    params = (title, amount, date_start, date_end, confirmation_of_start, confirmation_of_withdrawal, profit)
     connection = sqlite3.connect(db_route)
     cursor = connection.cursor()
 
     cursor.execute(
-        "INSERT INTO investment(title, amount_invested,"
+        "INSERT INTO investment(title, amount,"
         "date_start, date_end,"
         "confirmation_of_start, confirmation_of_withdrawal,"
         "profit) VALUES(?, ?, ?, ?, ?, ?, ?)", params)
@@ -59,10 +58,14 @@ def insert(title, amount_invested, date_start, date_end, confirmation_of_start=F
     connection.close()
     return id
 
-
-def update():
-    return None
-
+def update(investment, key):
+    connection = sqlite3.connect(db_route)
+    cursor = connection.cursor()
+    params = (getattr(investment, key), investment.id)
+    query = "UPDATE investment set " + key + " = ? where id = ?"
+    cursor.execute(query, params)
+    connection.commit()
+    connection.close()
 
 def select_uninvested_investments():
     result = {}
@@ -71,10 +74,10 @@ def select_uninvested_investments():
     cursor.execute(
         "SELECT * FROM investment where confirmation_of_investment=0 and date_start >= " + time.time())  # todo:assert this works
     for row in cursor:
-        id, title, amount_invested, date_start, date_end, confirmation_of_investment, confirmation_of_withdrawal, profit = row
+        id, title, amount, date_start, date_end, confirmation_of_investment, confirmation_of_withdrawal, profit = row
         result[id] = {}
         result[id]["title"] = title
-        result[id]["amount_invested"] = amount_invested
+        result[id]["amount"] = amount
         result[id]["date_start"] = date_start
         result[id]["date_end"] = date_end
         result[id]["confirmation_of_investment"] = confirmation_of_investment
@@ -91,10 +94,10 @@ def select_unwithdrawed_investments():
     cursor.execute(
         "SELECT * FROM investment where confirmation_of_withdrawal=0 and date_end <= " + time.time())  # TODO: assert this works
     for row in cursor:
-        id, title, amount_invested, date_start, date_end, confirmation_of_investment, confirmation_of_withdrawal, profit = row
+        id, title, amount, date_start, date_end, confirmation_of_investment, confirmation_of_withdrawal, profit = row
         result[id] = {}
         result[id]["title"] = title
-        result[id]["amount_invested"] = amount_invested
+        result[id]["amount"] = amount
         result[id]["date_start"] = date_start
         result[id]["date_end"] = date_end
         result[id]["confirmation_of_investment"] = confirmation_of_investment
