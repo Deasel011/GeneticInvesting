@@ -18,6 +18,8 @@ def test_individual():
 
 def test_population():
     pop = population.Population('AAL',time.time(),time.time()+10)
+    pop.generate()
+    assert len(pop.individuals) > 0
     print "Called successfully, awaiting 10 Liquidating calls."
     print "All Liquidating calls should be received."
 
@@ -27,7 +29,6 @@ def test_fitness():
 def test_grade():
     print "Testing grade of population."
     pop2 = population.Population('AAL',time.time(),time.time()+10)
-    time.sleep(10)
     print "Grade score:",fitness.grade(pop2.get_pop())
     for ind in pop2.get_pop():
         print ind.getNetResult(),
@@ -67,6 +68,7 @@ def all():
     test_fitness()
     test_grade()
     test_evolve()
+    test_update()
 
 # test_new_investment()
-test_update()
+all()

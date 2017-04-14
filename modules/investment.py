@@ -30,6 +30,8 @@ class Investment:
             self.profit = self.get_title_value() - self.amount
             self.confirmation_withdraw = True
             self.update_amount("profit")
+            return self.profit
+        return None
 
     def update_amount(self, key):
         database.update(self, key)
