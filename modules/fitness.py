@@ -14,6 +14,8 @@ class Fitness:
 
     def check_fitness(self):
         self.result == self.individual.get_net_result()
+        if self.result == None:
+            self.result = 0
 
     def get_fitness(self):
         return self.result

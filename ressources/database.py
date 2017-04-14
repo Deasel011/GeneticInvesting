@@ -2,6 +2,7 @@ import sqlite3
 import time
 
 db_route = "/Users/pdesl/PycharmProjects/GeneticInvesting/GI.db"
+timeout = 5
 
 # def init():
 #     connection = sqlite3.connect(db_route)
@@ -77,7 +78,7 @@ def update():
     return None
 
 def update(investment, key):
-    connection = sqlite3.connect(db_route)
+    connection = sqlite3.connect(db_route,50)
     cursor = connection.cursor()
     params = (getattr(investment, key), investment.id)
     query = "UPDATE investment set " + key + " = ? where id = ?"
@@ -107,7 +108,7 @@ def select_uninvested_investments():
 
 def select_unwithdrawed_investments():
     result = {}
-    connection = sqlite3.connect(db_route)
+    connection = connect()
     cursor = connection.cursor()
     cursor.execute(
         "SELECT * FROM investment where confirmation_of_withdrawal=0 and date_end <= " + time.time())  # TODO: assert this works
@@ -123,3 +124,18 @@ def select_unwithdrawed_investments():
         result[id]["profit"] = profit
     connection.close()
     return result
+
+def connect():
+    connection = sqlite3.connect(db_route)
+    for x in range(0, timeout):
+        try:
+            with connection:
+                return connection
+        except:
+            time.sleep(1)
+            pass
+        finally:
+            break
+    else:
+        with connection:
+            return connection

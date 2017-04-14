@@ -14,14 +14,14 @@ def test_individual():
                                  )
     print "Called successfully, awaiting Liquidating call."
     print "Liquidating call should be received."
+    time.sleep(5)
     print "Net result is: ", dude.get_net_result()
 
 def test_population():
     pop = population.Population('AAL',time.time(),time.time()+10)
     pop.generate()
     assert len(pop.individuals) > 0
-    print "Called successfully, awaiting 10 Liquidating calls."
-    print "All Liquidating calls should be received."
+    print "Created population without hitch"
 
 def test_fitness():
     print "No Fitness test yet"
@@ -29,15 +29,18 @@ def test_fitness():
 def test_grade():
     print "Testing grade of population."
     pop2 = population.Population('AAL',time.time(),time.time()+10)
+    pop2.generate()
+    time.sleep(10)
     print "Grade score:",fitness.grade(pop2.get_pop())
     for ind in pop2.get_pop():
-        print ind.getNetResult(),
+        print ind.investment.profit,
 
 def test_evolve():
-    pop3 = population.Population(10, 'AAL', 3, 6, 3, 10)
+    pop3 = population.Population('AAL',time.time(),time.time()+10)
+    pop3.generate()
     time.sleep(10)
     print "Grade score:", fitness.grade(pop3.get_pop())
-    pop4 = evolution.breed(pop3.get_pop())
+    pop4 = evolution.breed(pop3.get_pop(),pop3.date_start,pop3.date_end)
     time.sleep(10)
     print "Grade score:", fitness.grade(pop4)
 
