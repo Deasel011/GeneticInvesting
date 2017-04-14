@@ -44,9 +44,22 @@ def test_new_investment():
     invest = investment.Investment("AAL",1,time.time(),(time.time()+5000))
     print "id of new investment:",invest.id
 
+def test_update():
+    invest = investment.Investment("AAL",1,time.time(),(time.time()+5000))
+    invest.get_title_value = mock_up_title_value
+    invest.buy()
+    invest.get_title_value = mock_up_title_value2
+    invest.sell()
+
 def init_db():
     database.init()
     database.populate_titles([{u"name", u""}])
+
+def mock_up_title_value():
+    return 10
+
+def mock_up_title_value2():
+    return 33
 
 def all():
     test_individual()
@@ -55,6 +68,11 @@ def all():
     test_grade()
     test_evolve()
 
+<<<<<<< HEAD
+# test_new_investment()
+test_update()
+=======
 
 all()
 
+>>>>>>> 6034a2d7237615de76a42636c5b454fe8cd9f784

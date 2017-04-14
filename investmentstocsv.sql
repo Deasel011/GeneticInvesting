@@ -2,7 +2,7 @@
 .mode csv
 .output /Users/pdesl/PycharmProjects/GeneticInvesting/data.csv
 select title,
-  amount_invested,
+  amount,
   profit,
   date_start,
   date_end,

@@ -16,52 +16,20 @@ class Investment:
         self.id = database.insert(title,date_start,date_end)
 
     def buy(self):
-        self.amount = titles.getTitleValue(self.title)
+        self.amount = self.get_title_value()
+
         if self.amount != None:
             self.confirmation_start = True
+            self.update_amount("amount")
+
+    def get_title_value(self):
+        return titles.getTitleValue(self.title)
 
     def sell(self):
         if self.confirmation_start == True:
-            self.profit = titles.getTitleValue(self.title) - self.amount
+            self.profit = self.get_title_value() - self.amount
             self.confirmation_withdraw = True
+            self.update_amount("profit")
 
-
-# def buy_stock(title,amount):
-#     try:
-#         self.amount = titles.getTitleValue(title) * amount
-#     except urllib2.URLError:
-#         return buy_stock_recursive(title,amount,MAX_DEPTH)
-#     return price_of_transaction
-
-def buy_stock_recursive(title,amount,depth):
-    print "Trying http call, ", depth, " to go."
-    if depth == 0:
-        raise Exception("Maximum tries for http call reached.")
-    try:
-        price_of_transaction = titles.getTitleValue(title) * amount
-    except urllib2.URLError:
-        depth = depth - 1
-        return buy_stock_recursive(title,amount,depth)
-    return price_of_transaction
-
-def sellStock():
-    gains_of_transaction = None
-    return gains_of_transaction
-
-def liquidate_stock(title,amount):
-    try:
-        gains_of_transaction = titles.getTitleValue(title) * amount
-    except urllib2.URLError:
-        return liquidate_stock_recursive(title,amount,MAX_DEPTH)
-    return gains_of_transaction
-
-def liquidate_stock_recursive(title,amount, depth):
-    print "Trying http call, ", depth, " to go."
-    if depth == 0:
-        raise Exception("Maximum tries for http call reached.")
-    try:
-        gains_of_transaction = titles.getTitleValue(title) * amount
-    except urllib2.URLError:
-        depth = depth -1
-        return liquidate_stock_recursive(title, amount, depth)
-    return gains_of_transaction
+    def update_amount(self, key):
+        database.update(self, key)
