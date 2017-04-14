@@ -41,7 +41,7 @@ def populate_titles(titles):
     connection.close()
     return None
 
-def insert(title, amount, date_start, date_end, confirmation_of_start=False, confirmation_of_withdrawal=False,
+def insert(title, date_start, date_end,amount=0, confirmation_of_start=False, confirmation_of_withdrawal=False,
            profit=0):
     params = (title, amount, date_start, date_end, confirmation_of_start, confirmation_of_withdrawal, profit)
     connection = sqlite3.connect(db_route)
