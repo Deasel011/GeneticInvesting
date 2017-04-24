@@ -1,3 +1,9 @@
+To be able to run files, you currently need to install these dependencies
+  pip install yahoo-finance
+  pip install realtime-stock
+
+
+
 This project was developped By Pobux And Deasel011
 The goal of this project is to find safe investements on a daily basis on market shares defined by the user.
 
