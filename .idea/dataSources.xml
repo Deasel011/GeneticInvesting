@@ -7,5 +7,11 @@
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/GI.db</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="GI_archive.db" uuid="13eeb3f9-4c94-4fd9-8faa-d534cf963480">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/GI_archive.db</jdbc-url>
+    </data-source>
   </component>
 </project>

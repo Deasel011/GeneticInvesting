@@ -1,3 +1,5 @@
+from urllib2 import URLError
+
 from rtstock.stock import Stock
 from yahoo_finance import Share
 

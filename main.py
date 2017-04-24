@@ -1,21 +1,8 @@
-from modules import fitness, population, evolution
-from ressources import database
-import time
-
-def checkTransaction(pop):
-    for ind in pop.individuals:
-        if time.time() >= ind.investment.date_start and not ind.investment.confirmation_start:
-            ind.investment.buy()
-        if time.time() >= ind.investment.date_end and not ind.investment.confirmation_withdraw:
-            ind.investment.sell()
+from modules import runnable
 
 
-def initPopulation(title,start,end):
-    return population.Population(title,start,end)
+# initPopulation("AAL",time.time(),time.time()+3600)
+# initPopulation("AAL",time.time()+3600,time.time()+7200)
+# initPopulation("AAL",1492864200,1492891200)
 
-allPopulations = database.loadActivePopulations()
-
-while(True):
-    time.sleep(1)
-    for pop in allPopulations:
-        checkTransaction(pop)
+runnable.run()

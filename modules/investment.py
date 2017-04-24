@@ -5,32 +5,43 @@ from ressources import titles
 MAX_DEPTH = 3
 
 class Investment:
-    def __init__(self, title, date_start, date_end,popid):
+    def __init__(self, title, date_start, date_end,popid,into_db):
         self.amount = None
         self.profit = None
         self.date_start = date_start
         self.date_withdraw = date_end
-        self.confirmation_start = False
-        self.confirmation_withdraw = False
+        self.confirmation_of_start = False
+        self.confirmation_of_withdrawal = False
         self.title = title
-        self.id = database.insert(title,date_start,date_end,popid)
+        if into_db:
+            self.id = database.insert(title,date_start,date_end,popid)
 
     def buy(self):
-        self.amount = self.get_title_value()
+        try:
+            self.amount = self.get_title_value()
+            print "Buying", self.title, "at", self.amount
+        except urllib2.URLError:
+            print "Could not retrieve price"
 
         if self.amount != None:
-            self.confirmation_start = True
+            self.confirmation_of_start = True
+            database.set_confirmation_start_true(self.id)
             self.update_amount("amount")
 
     def get_title_value(self):
         return titles.getTitleValue(self.title)
 
     def sell(self):
-        if self.confirmation_start == True:
-            self.profit = self.get_title_value() - self.amount
-            self.confirmation_withdraw = True
-            self.update_amount("profit")
-            return self.profit
+        if self.confirmation_of_start == True:
+            try:
+                self.profit = self.get_title_value() - self.amount
+                print "Selling", self.title, "with profit of", self.profit
+                self.confirmation_of_withdrawal = True
+                database.set_confirmation_withdrawal_true(self.id)
+                self.update_amount("profit")
+                return self.profit
+            except urllib2.URLError:
+                print "Could not retrieve price"
         return None
 
     def update_amount(self, key):

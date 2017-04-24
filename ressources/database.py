@@ -2,6 +2,7 @@ import sqlite3
 import time
 
 db_route = "/Users/pdesl/PycharmProjects/GeneticInvesting/GI.db"
+db_archive_route = "/Users/pdesl/PycharmProjects/GeneticInvesting/GI_archive.db"
 timeout = 5
 
 # def init():
@@ -73,12 +74,52 @@ def insertPop(title,date_start,date_end):
     connection.close()
     return id
 
+def archive(title, date_start, date_end, popid, amount=0, confirmation_of_start=False, confirmation_of_withdrawal=False,
+           profit=0):
+    params = (title, date_start, date_end, popid, amount,confirmation_of_start, confirmation_of_withdrawal, profit)
+    connection = sqlite3.connect(db_archive_route,10)
+    cursor = connection.cursor()
+
+    cursor.execute(
+        "INSERT INTO investment(title, "
+        "date_start, date_end, population_id, amount,"
+        "confirmation_of_start, confirmation_of_withdrawal,"
+        "profit) VALUES(?, ?, ?, ?, ?, ?, ?, ?)", params)
+
+    id = cursor.lastrowid
+    connection.commit()
+    connection.close()
+    return id
+
+def archive_pop(popid, title,date_start,date_end):
+    params = (popid, title, date_start, date_end)
+    connection = sqlite3.connect(db_archive_route)
+    cursor = connection.cursor()
+
+    cursor.execute(
+        "INSERT INTO population(popid, title,"
+        "date_start, date_end) VALUES (?,?,?,?)", params)
+
+    id = cursor.lastrowid
+    connection.commit()
+    connection.close()
+    return id
+
 
 def update(investment, key):
     connection = sqlite3.connect(db_route,100)
     cursor = connection.cursor()
     params = (getattr(investment, key), investment.id)
     query = "UPDATE investment set " + key + " = ? where id = ?"
+    cursor.execute(query, params)
+    connection.commit()
+    connection.close()
+
+def update_pop(population, key):
+    connection = sqlite3.connect(db_route,100)
+    cursor = connection.cursor()
+    params = (getattr(population, key), population.id)
+    query = "UPDATE population set " + key + " = ? where id = ?"
     cursor.execute(query, params)
     connection.commit()
     connection.close()
@@ -122,5 +163,49 @@ def select_unwithdrawed_investments():
     connection.close()
     return result
 
-def dailyArchive():
-    None
+def daily_archive():
+    connection = sqlite3.connect(db_route)
+    cursor = connection.cursor()
+    ind_cursor = connection.cursor()
+    cursor.execute(
+        "SELECT * FROM population")
+    for row in cursor:
+        id,title,date_start,date_end=row
+        archive_pop(id,title,date_start,date_end)
+        ind_cursor.execute("Select * FROM investment where population_id=?",(id,))
+        for ind_row in ind_cursor:
+            id,title,amount,date_start,confirmation_of_start,date_end,profit,confirmation_of_withdrawal,population_id=ind_row
+            archive(title,amount,date_end,population_id,amount,confirmation_of_start,confirmation_of_withdrawal,profit)
+    connection.close()
+
+def renew_population(id):
+    connection = sqlite3.connect(db_route)
+    cursor = connection.cursor()
+    cursor.execute(
+        "DELETE FROM investment where population_id = ?",(id,))
+    connection.commit()
+    connection.close()
+
+def remove_ind(id):
+    connection = sqlite3.connect(db_route)
+    cursor = connection.cursor()
+    cursor.execute(
+        "DELETE FROM investment where id = ?",(id,))
+    connection.commit()
+    connection.close()
+
+def set_confirmation_start_true(id):
+    connection = sqlite3.connect(db_route)
+    cursor = connection.cursor()
+    query = "UPDATE investment set confirmation_of_start = 1 where id = ?"
+    cursor.execute(query, (id,))
+    connection.commit()
+    connection.close()
+
+def set_confirmation_withdrawal_true(id):
+    connection = sqlite3.connect(db_route)
+    cursor = connection.cursor()
+    query = "UPDATE investment set confirmation_of_withdrawal = 1 where id = ?"
+    cursor.execute(query, (id,))
+    connection.commit()
+    connection.close()

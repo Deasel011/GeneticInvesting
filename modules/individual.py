@@ -9,10 +9,10 @@ class Individual(object):
     """Representation of one investment"""
     netGains = None #None will give instanciated variable
 
-    def __init__(self, title, date_start,date_end,popid):
+    def __init__(self, title, date_start,date_end,popid,into_db=True):
         self.title = title
         self.delay = int(date_end - date_start)
-        self.investment = investment.Investment(title,date_start,date_end,popid)
+        self.investment = investment.Investment(title,date_start,date_end,popid,into_db)
         # start timer with delay
         # when timer is done
         # startTimer(delay):
