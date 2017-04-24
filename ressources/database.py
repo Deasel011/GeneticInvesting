@@ -1,8 +1,9 @@
 import sqlite3
 import time
+from ressources import config
 
-db_route = "/Users/pdesl/PycharmProjects/GeneticInvesting/GI.db"
-db_archive_route = "/Users/pdesl/PycharmProjects/GeneticInvesting/GI_archive.db"
+db_route = config.db_route
+db_archive_route = config.db_archive_route
 timeout = 5
 
 # def init():
