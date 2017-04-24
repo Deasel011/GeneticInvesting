@@ -37,10 +37,10 @@ def run():
     all_populations = population.load_all_populations()
     print "Populations loaded"
     while(True):
-        # if time.time() % 86400 > 72000: # 16h
+        if time.time() % 86400 > 72000: # 16h
         # if time.time() % 86400 > 67200: #14h40
         # if time.time() % 86400 > 61200:  # 13h00
-        if time.time() % 86400 > 58800:  # 14h40
+        # if time.time() % 86400 > 58800:  # 14h40
             print "END OF DAY",int(time.time())
             end_of_day_tasks(all_populations)
             print "Daily run over"
