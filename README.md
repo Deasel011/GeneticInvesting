@@ -1,6 +1,8 @@
 To be able to run files, you currently need to install these dependencies
-  pip install yahoo-finance
-  pip install realtime-stock
+
+    pip install yahoo-finance
+
+    pip install realtime-stock
 
 
 
