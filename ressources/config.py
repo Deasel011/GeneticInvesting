@@ -1,3 +1,3 @@
 population_size = 1000
-db_route = "/Users/pdesl/PycharmProjects/GeneticInvesting/GI.db"
-db_archive_route = "/Users/pdesl/PycharmProjects/GeneticInvesting/GI_archive.db"
+db_route = "/home/phil/GeneticInvesting/ressources/GI.db"
+db_archive_route = "/home/phil/GeneticInvesting/ressources/GI_archive.db"

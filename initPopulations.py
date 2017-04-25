@@ -6,9 +6,9 @@ import time
 
 start = 1493042400
 end = 1493064000
-titles = ['AAL','AAPL','ADBE','ADI','ADP',
-          'ADSK','AKAM','ALXN','AMAT','GOOG',
-          'GOOGL','FOX','FOXA','COST']
+titles = ['ATVI','ADBE','AKAM','ALXN','GOOGL',
+	'GOOG','AMZN','AAL','AMGN','ADI'
+	'AAPL','AMAT','ADSK','ADP','BIDU']
 
 
 def initPops(title_list):
