@@ -13,6 +13,6 @@ titles = ['ATVI','ADBE','AKAM','ALXN','GOOGL',
 
 def initPops(title_list):
     for title in title_list:
-        runnable.initPopulation(title,start,end)
+        runnable.initPopulation(title,int(time.time()),end)
 
 initPops(titles)
