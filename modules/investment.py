@@ -34,6 +34,10 @@ class Investment:
     def sell(self):
         if self.confirmation_of_start == True:
             try:
+                val = self.get_title_value()
+                if val == None:
+                    print "Value not set, passing"
+                    return None
                 self.profit = self.get_title_value() - self.amount
                 print "Selling", self.title, "with profit of", self.profit
                 self.confirmation_of_withdrawal = True

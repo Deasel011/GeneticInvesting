@@ -1,5 +1,4 @@
 from urllib2 import URLError
-
 from rtstock.stock import Stock
 from yahoo_finance import Share
 
@@ -120,7 +119,10 @@ def getTitles():
 
 def getTitleValue(title):
     stock = Share(title)
-    return float(stock.get_price())
+    try:
+        return float(stock.get_price())
+    except TypeError:
+        return None
 
 def get_time_of_transaction(title):
     stock = Share(title)
