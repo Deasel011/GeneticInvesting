@@ -46,10 +46,13 @@ def run():
             print "Daily run over"
             break
         else:
-            print "Checking Transactions..."
-            time.sleep(1)
-            for pop in all_populations:
-                checkTransaction(pop)
+            try:
+                print "Checking Transactions..."
+                time.sleep(1)
+                for pop in all_populations:
+                    checkTransaction(pop)
+            except Exception:
+                print Exception.message
 
     tomorow = sched.scheduler(time.time,time.sleep)
     tomorow.enter(63000,1,run,())
