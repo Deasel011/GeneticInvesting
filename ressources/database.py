@@ -175,8 +175,8 @@ def daily_archive():
         archive_pop(id,title,date_start,date_end)
         ind_cursor.execute("Select * FROM investment where population_id=?",(id,))
         for ind_row in ind_cursor:
-            id,title,amount,date_start,confirmation_of_start,date_end,profit,confirmation_of_withdrawal,population_id=ind_row
-            archive(title,amount,date_end,population_id,amount,confirmation_of_start,confirmation_of_withdrawal,profit)
+            id, title, amount, date_start, date_end, confirmation_of_investment, confirmation_of_withdrawal, profit = ind_row
+            archive(title,date_start,date_end,population_id,amount,confirmation_of_start,confirmation_of_withdrawal,profit)
     connection.close()
 
 def renew_population(id):
