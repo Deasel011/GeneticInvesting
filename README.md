@@ -1,3 +1,6 @@
+View board:
+app.clubhouse.io/deasel
+
 To be able to run files, you currently need to install these dependencies
 
     pip install yahoo-finance
